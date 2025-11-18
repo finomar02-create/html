@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Kuis Kelas 10 - 25 Soal</title>
+<style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+    h1 { text-align: center; }
+    .quiz-container { background: #fff; padding: 20px; border-radius: 10px; max-width: 800px; margin: auto; }
+    .question { margin-bottom: 15px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    #result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Kuis Pelajaran Kelas 10 (25 Soal)</h1>
+
+    <form id="quizForm">
+
+        <!-- 25 SOAL -->
+        <div class="question">
+            1. Proses mengubah air menjadi uap disebut …  
+            <br><input type="radio" name="q1" value="a"> Kondensasi  
+            <br><input type="radio" name="q1" value="b"> Evaporasi  
+            <br><input type="radio" name="q1" value="c"> Sublimasi  
+        </div>
+
+        <div class="question">
+            2. Nilai Pancasila sila ke-3 adalah …  
+            <br><input type="radio" name="q2" value="a"> Kemanusiaan yang adil dan beradab  
+            <br><input type="radio" name="q2" value="b"> Persatuan Indonesia  
+            <br><input type="radio" name="q2" value="c"> Kerakyatan  
+        </div>
+
+        <div class="question">
+            3. Rumus kimia air adalah …  
+            <br><input type="radio" name="q3" value="a"> CO₂  
+            <br><input type="radio" name="q3" value="b"> H₂O  
+            <br><input type="radio" name="q3" value="c"> O₂  
+        </div>
+
+        <div class="question">
+            4. Bentuk pemerintahan Indonesia adalah …  
+            <br><input type="radio" name="q4" value="a"> Kerajaan  
+            <br><input type="radio" name="q4" value="b"> Republik  
+            <br><input type="radio" name="q4" value="c"> Monarki  
+        </div>
+
+        <div class="question">
+            5. Jika gaya meningkat, percepatan …  
+            <br><input type="radio" name="q5" value="a"> Berkurang  
+            <br><input type="radio" name="q5" value="b"> Tetap  
+            <br><input type="radio" name="q5" value="c"> Bertambah  
+        </div>
+
+        <div class="question">
+            6. Ibu kota provinsi Jawa Barat adalah …  
+            <br><input type="radio" name="q6" value="a"> Bandung  
+            <br><input type="radio" name="q6" value="b"> Bogor  
+            <br><input type="radio" name="q6" value="c"> Depok  
+        </div>
+
+        <div class="question">
+            7. Contoh sumber energi terbarukan adalah …  
+            <br><input type="radio" name="q7" value="a"> Batu bara  
+            <br><input type="radio" name="q7" value="b"> Minyak bumi  
+            <br><input type="radio" name="q7" value="c"> Matahari  
+        </div>
+
+        <div class="question">
+            8. Teks yang berisi langkah-langkah disebut teks …  
+            <br><input type="radio" name="q8" value="a"> Eksposisi  
+            <br><input type="radio" name="q8" value="b"> Prosedur  
+            <br><input type="radio" name="q8" value="c"> Narasi  
+        </div>
+
+        <div class="question">
+            9. Istiqlal adalah nama masjid terbesar di …  
+            <br><input type="radio" name="q9" value="a"> Bandung  
+            <br><input type="radio" name="q9" value="b"> Jakarta  
+            <br><input type="radio" name="q9" value="c"> Surabaya  
+        </div>
+
+        <div class="question">
+            10. Perubahan wujud dari padat ke cair disebut …  
+            <br><input type="radio" name="q10" value="a"> Mencair  
+            <br><input type="radio" name="q10" value="b"> Membeku  
+            <br><input type="radio" name="q10" value="c"> Menyublim  
+        </div>
+
+        <div class="question">
+            11. Tokoh proklamator Indonesia adalah …  
+            <br><input type="radio" name="q11" value="a"> Soekarno & Hatta  
+            <br><input type="radio" name="q11" value="b"> Soeharto & Habibie  
+            <br><input type="radio" name="q11" value="c"> Bung Tomo & Diponegoro  
+        </div>
+
+        <div class="question">
+            12. Planet terbesar di tata surya adalah …  
+            <br><input type="radio" name="q12" value="a"> Bumi  
+            <br><input type="radio" name="q12" value="b"> Jupiter  
+            <br><input type="radio" name="q12" value="c"> Venus  
+        </div>
+
+        <div class="question">
+            13. Teks yang bertujuan membujuk pembaca disebut …  
+            <br><input type="radio" name="q13" value="a"> Persuasif  
+            <br><input type="radio" name="q13" value="b"> Deskripsi  
+            <br><input type="radio" name="q13" value="c"> Eksplanasi  
+        </div>
+
+        <div class="question">
+            14. Rangka manusia tersusun dari …  
+            <br><input type="radio" name="q14" value="a"> Otot  
+            <br><input type="radio" name="q14" value="b"> Tulang  
+            <br><input type="radio" name="q14" value="c"> Jaringan  
+        </div>
+
+        <div class="question">
+            15. Negara tetangga Indonesia di sebelah utara adalah …  
+            <br><input type="radio" name="q15" value="a"> Australia  
+            <br><input type="radio" name="q15" value="b"> Malaysia  
+            <br><input type="radio" name="q15" value="c"> India  
+        </div>
+
+        <div class="question">
+            16. Rumus luas persegi adalah …  
+            <br><input type="radio" name="q16" value="a"> p × l  
+            <br><input type="radio" name="q16" value="b"> s × s  
+            <br><input type="radio" name="q16" value="c"> ½ × a × t  
+        </div>
+
+        <div class="question">
+            17. Perubahan energi listrik menjadi cahaya terjadi pada …  
+            <br><input type="radio" name="q17" value="a"> Kipas angin  
+            <br><input type="radio" name="q17" value="b"> Lampu  
+            <br><input type="radio" name="q17" value="c"> Kompor gas  
+        </div>
+
+        <div class="question">
+            18. Bahasa pemersatu bangsa Indonesia adalah …  
+            <br><input type="radio" name="q18" value="a"> Bahasa Daerah  
+            <br><input type="radio" name="q18" value="b"> Bahasa Asing  
+            <br><input type="radio" name="q18" value="c"> Bahasa Indonesia  
+        </div>
+
+        <div class="question">
+            19. Bunyi tidak dapat merambat melalui …  
+            <br><input type="radio" name="q19" value="a"> Padat  
+            <br><input type="radio" name="q19" value="b"> Cair  
+            <br><input type="radio" name="q19" value="c"> Ruang hampa  
+        </div>
+
+        <div class="question">
+            20. Perjanjian yang mengakhiri Perang Dunia I adalah …  
+            <br><input type="radio" name="q20" value="a"> Versailles  
+            <br><input type="radio" name="q20" value="b"> Kalijati  
+            <br><input type="radio" name="q20" value="c"> Linggarjati  
+        </div>
+
+        <div class="question">
+            21. Fotosintesis berlangsung di bagian tumbuhan bernama …  
+            <br><input type="radio" name="q21" value="a"> Akar  
+            <br><input type="radio" name="q21" value="b"> Daun  
+            <br><input type="radio" name="q21" value="c"> Batang  
+        </div>
+
+        <div class="question">
+            22. Lambang sila pertama Pancasila adalah …  
+            <br><input type="radio" name="q22" value="a"> Bintang  
+            <br><input type="radio" name="q22" value="b"> Rantai  
+            <br><input type="radio" name="q22" value="c"> Pohon beringin  
+        </div>
+
+        <div class="question">
+            23. Alat musik yang dimainkan dengan cara dipetik adalah …  
+            <br><input type="radio" name="q23" value="a"> Gitar  
+            <br><input type="radio" name="q23" value="b"> Drum  
+            <br><input type="radio" name="q23" value="c"> Piano  
+        </div>
+
+        <div class="question">
+            24. Ibukota negara Jepang adalah …  
+            <br><input type="radio" name="q24" value="a"> Osaka  
+            <br><input type="radio" name="q24" value="b"> Tokyo  
+            <br><input type="radio" name="q24" value="c"> Kyoto  
+        </div>
+
+        <div class="question">
+            25. Perkalian adalah operasi matematika yang termasuk …  
+            <br><input type="radio" name="q25" value="a"> Penjumlahan berulang  
+            <br><input type="radio" name="q25" value="b"> Pengurangan berulang  
+            <br><input type="radio" name="q25" value="c"> Pembagian  
+        </div>
+
+        <button type="button" onclick="checkQuiz()">Kumpulkan Jawaban</button>
+
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function checkQuiz() {
+    const answers = {
+        q1:"b", q2:"b", q3:"b", q4:"b", q5:"c",
+        q6:"a", q7:"c", q8:"b", q9:"b", q10:"a",
+        q11:"a", q12:"b", q13:"a", q14:"b", q15:"b",
+        q16:"b", q17:"b", q18:"c", q19:"c", q20:"a",
+        q21:"b", q22:"a", q23:"a", q24:"b", q25:"a"
+    };
+
+    let score = 0;
+    for (let key in answers) {
+        let selected = document.querySelector(`input[name="${key}"]:checked`);
+        if (selected && selected.value === answers[key]) score++;
+    }
+
+    document.getElementById("result").innerHTML =
+        "Skor Akhir: " + score + " / 25";
+}
+</script>
+
+</body>
+</html>
