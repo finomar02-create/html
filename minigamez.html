@@ -3,142 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mini Game Kuis 40 Soal</title>
+<title>Mini Game Kuis Kelas 10</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: linear-gradient(135deg, #1b1b1b, #333);
+        background: linear-gradient(135deg, #1e1e2f, #191919, #2c2c54);
+        background-size: 300% 300%;
+        animation: bgMove 12s infinite alternate;
         color: #fff;
         text-align: center;
         padding: 20px;
     }
+
+    @keyframes bgMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+    }
+
+    h1 {
+        text-shadow: 0 0 12px #00eaff, 0 0 22px #00eaff;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
     .game-box {
-        background: rgba(0,0,0,0.4);
-        padding: 20px;
-        border-radius: 12px;
+        background: rgba(40, 40, 40, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
         max-width: 650px;
         margin: auto;
-        box-shadow: 0 0 20px rgba(255,255,255,0.1);
         backdrop-filter: blur(5px);
     }
+
     button {
-        padding: 12px 24px;
+        padding: 12px 25px;
         border: none;
         background: #28a745;
         color: white;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
-        margin: 10px;
-        font-size: 16px;
+        font-size: 17px;
+        transition: 0.25s;
     }
+
     button:hover {
-        background: #218838;
+        transform: scale(1.07);
+        background: #22c34a;
     }
+
     .option {
         display: block;
         background: #444;
         padding: 12px;
         border-radius: 10px;
-        margin: 8px;
+        margin: 10px;
         cursor: pointer;
-        font-size: 16px;
-        transition: 0.2s;
-    }
-    .option:hover {
-        background: #666;
+        transition: 0.25s;
     }
 
-    /* Warna benar / salah */
+    .option:hover {
+        background: #555;
+        transform: scale(1.05);
+    }
+
     .correct {
         background: #28a745 !important;
+        transform: scale(1.12);
     }
+
     .wrong {
         background: #dc3545 !important;
+        transform: scale(1.08);
     }
 
     #timer {
         font-size: 22px;
         margin-bottom: 12px;
         color: #ffcc00;
+        transition: 0.3s;
+        font-weight: bold;
     }
 
-    footer {
-        margin-top: 40px;
-        font-size: 14px;
-        opacity: 0.8;
-        color: #ccc;
+    .pulse {
+        animation: pulseAnim 1s infinite alternate;
+    }
+
+    @keyframes pulseAnim {
+        from { transform: scale(1); }
+        to { transform: scale(1.25); }
     }
 </style>
 </head>
 <body>
 
-<h1>Mini Game Kuis 40 Soal</h1>
+<h1>Mini Game Kuis Kelas 10</h1>
 
 <div class="game-box">
     <div id="timer">Waktu: 20</div>
     <h2 id="question">Klik Mulai untuk bermain!</h2>
     <div id="options"></div>
-    <button onclick="startGame()">Mulai Game</button>
+
+    <button id="startBtn" onclick="startGame()">Mulai Game</button>
+
     <h2 id="score"></h2>
 </div>
 
-<footer>
-    Oleh Alfino dan Farid – SMAN Kabuh Jombang | 2025
-</footer>
-
 <script>
+const quizData = [
+    /* ===== 40 SOAL (SEMUA 5 OPSI) ===== */
 
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-}
+    {q:"Proses mengubah air menjadi uap disebut …", o:["Kondensasi","Evaporasi","Sublimasi","Deposisi","Difusi"], a:1},
+    {q:"Nilai Pancasila sila ke-3 adalah …", o:["Kemanusiaan","Persatuan Indonesia","Ketuhanan","Keadilan","Kerakyatan"], a:1},
+    {q:"Rumus kimia air adalah …", o:["CO₂","H₂O","O₂","H₂","N₂"], a:1},
+    {q:"Bentuk pemerintahan Indonesia adalah …", o:["Kerajaan","Republik","Monarki","Federal","Kesultanan"], a:1},
+    {q:"Jika gaya meningkat, percepatan …", o:["Berkurang","Tetap","Bertambah","Hilang","Acak"], a:2},
 
-let quizData = [
-    {q:"Ibukota negara Jepang adalah?", o:["Tokyo","Osaka","Kyoto","Nagoya","Sapporo"], a:"Tokyo"},
-    {q:"Perubahan wujud dari cair menjadi gas disebut?", o:["Menguap","Menyublim","Membeku","Mengembun","Mengalir"], a:"Menguap"},
-    {q:"Planet terbesar di tata surya?", o:["Jupiter","Saturnus","Bumi","Uranus","Neptunus"], a:"Jupiter"},
-    {q:"Laut terbesar di dunia?", o:["Pasifik","Atlantik","Hindia","Arktik","Mediterania"], a:"Pasifik"},
-    {q:"Penemu lampu pijar adalah?", o:["Thomas Edison","Newton","Tesla","Einstein","Benjamin"], a:"Thomas Edison"},
-    {q:"Candi Borobudur terletak di?", o:["Magelang","Solo","Jogja","Malang","Kediri"], a:"Magelang"},
-    {q:"Rumus kimia air?", o:["H2O","CO2","O2","H2","NaCl"], a:"H2O"},
-    {q:"Benua terbesar di dunia?", o:["Asia","Afrika","Eropa","Australia","Amerika"], a:"Asia"},
-    {q:"Gunung tertinggi di Indonesia?", o:["Puncak Jaya","Semeru","Rinjani","Kerinci","Merapi"], a:"Puncak Jaya"},
-    {q:"Proklamasi Indonesia dibacakan tahun?", o:["1945","1942","1950","1930","1949"], a:"1945"},
-    {q:"Suhu 0°C dalam Fahrenheit adalah?", o:["32","0","10","100","20"], a:"32"},
-    {q:"Manusia bernafas menggunakan?", o:["Paru-paru","Hati","Ginjal","Lambung","Usus"], a:"Paru-paru"},
-    {q:"Hewan pemakan tumbuhan disebut?", o:["Herbivora","Karnivora","Omnivora","Insektivora","Granivora"], a:"Herbivora"},
-    {q:"Tokoh penemu gravitasi?", o:["Newton","Einstein","Tesla","Darwin","Edison"], a:"Newton"},
-    {q:"Bahasa resmi negara Korea Selatan?", o:["Korea","Mandarin","Jepang","Thai","Vietnam"], a:"Korea"},
-    {q:"Zat yang dibutuhkan tumbuhan untuk fotosintesis?", o:["Cahaya","Protein","Nitrogen","Besi","Kalsium"], a:"Cahaya"},
-    {q:"Gunung berapi aktif disebut?", o:["Stratovolcano","Fosil","Basalt","Kuarsa","Batu sabak"], a:"Stratovolcano"},
-    {q:"Burung mengepak sayap untuk?", o:["Terbang","Makan","Tidur","Bernapas","Berjalan"], a:"Terbang"},
-    {q:"Ibukota Inggris adalah?", o:["London","Liverpool","Manchester","Oxford","Leeds"], a:"London"},
-    {q:"Lambang unsur Oksigen adalah?", o:["O","Ox","Og","Oxg","O2"], a:"O"},
-    {q:"Sungai terpanjang di dunia?", o:["Nile","Amazon","Yangtze","Mississippi","Volga"], a:"Nile"},
-    {q:"Tokoh penemu telepon?", o:["Alexander Graham Bell","Edison","Newton","Tesla","Marconi"], a:"Alexander Graham Bell"},
-    {q:"Kerajaan Majapahit berdiri pada abad?", o:["13","12","10","15","17"], a:"13"},
-    {q:"Ibukota India adalah?", o:["New Delhi","Mumbai","Goa","Chennai","Bangalore"], a:"New Delhi"},
-    {q:"Hewan tercepat di darat?", o:["Cheetah","Singa","Kuda","Serigala","Harimau"], a:"Cheetah"},
-    {q:"Jumlah provinsi di Indonesia (2025)?", o:["38","37","36","40","35"], a:"38"},
-    {q:"Benua terkecil di dunia?", o:["Australia","Asia","Eropa","Afrika","Antartika"], a:"Australia"},
-    {q:"Tumbuhan menyerap air lewat?", o:["Akar","Daun","Batang","Bunga","Buah"], a:"Akar"},
-    {q:"Manusia pertama ke bulan?", o:["Neil Armstrong","Buzz Aldrin","Yuri Gagarin","John Glenn","Alan"], a:"Neil Armstrong"},
-    {q:"Kitab suci umat Islam adalah?", o:["Al-Qur'an","Injil","Taurat","Weda","Tripitaka"], a:"Al-Qur'an"},
-    {q:"Simbol '+’ pada matematika artinya?", o:["Penjumlahan","Pengurangan","Perkalian","Pembagian","Modulus"], a:"Penjumlahan"},
-    {q:"Hewan pemakan daging disebut?", o:["Karnivora","Herbivora","Omnivora","Detritivora","Saprofit"], a:"Karnivora"},
-    {q:"Negara dengan penduduk terbanyak?", o:["China","India","USA","Indonesia","Brazil"], a:"China"},
-    {q:"Planet terdekat dari matahari?", o:["Merkurius","Venus","Bumi","Mars","Jupiter"], a:"Merkurius"},
-    {q:"Bahasa resmi Jepang?", o:["Jepang","Korea","China","Thai","Vietnam"], a:"Jepang"},
-    {q:"Lambang unsur Emas?", o:["Au","Ag","Fe","Pt","Cu"], a:"Au"},
-    {q:"Satuan energi adalah?", o:["Joule","Newton","Watt","Lux","Pascal"], a:"Joule"},
-    {q:"Gunung tertinggi di dunia?", o:["Everest","K2","Kangchenjunga","Lhotse","Makalu"], a:"Everest"},
-    {q:"Burung yang tidak bisa terbang?", o:["Penguin","Elang","Merpati","Gagak","Kenari"], a:"Penguin"},
-    {q:"Hewan terbesar di bumi?", o:["Paus Biru","Gajah","Hiu Putih","Gorila","Beruang"], a:"Paus Biru"}
+    {q:"Ibu kota Jawa Barat adalah …", o:["Bandung","Bogor","Depok","Cirebon","Bekasi"], a:0},
+    {q:"Contoh energi terbarukan: …", o:["Batu bara","Minyak bumi","Matahari","Gas alam","Uranium"], a:2},
+    {q:"Teks berisi langkah-langkah adalah teks …", o:["Eksposisi","Prosedur","Narasi","Anekdot","Deskripsi"], a:1},
+    {q:"Masjid Istiqlal berada di …", o:["Bandung","Jakarta","Surabaya","Medan","Semarang"], a:1},
+    {q:"Perubahan padat ke cair disebut …", o:["Mencair","Membeku","Menyublim","Mengembun","Deposisi"], a:0},
+
+    {q:"Proklamator Indonesia adalah …", o:["Soekarno & Hatta","Soeharto & Habibie","Diponegoro & Bung Tomo","Megawati & Jokowi","Kartini & Cut Nyak Dien"], a:0},
+    {q:"Planet terbesar adalah …", o:["Bumi","Jupiter","Venus","Mars","Saturnus"], a:1},
+    {q:"Teks yang bertujuan membujuk disebut …", o:["Persuasif","Deskripsi","Eksplanasi","Eksposisi","Fabel"], a:0},
+    {q:"Rangka manusia tersusun dari …", o:["Otot","Tulang","Jaringan","Darah","Saraf"], a:1},
+    {q:"Negara tetangga Indonesia di utara adalah …", o:["Australia","Malaysia","India","Laos","Pakistan"], a:1},
+
+    {q:"Rumus luas persegi adalah …", o:["p×l","s×s","½×a×t","πr²","2πr"], a:1},
+    {q:"Energi listrik menjadi cahaya terjadi pada …", o:["Kipas","Lampu","Setrika","Kompor listrik","Speaker"], a:1},
+    {q:"Bahasa pemersatu bangsa adalah …", o:["Bahasa daerah","Bahasa asing","Bahasa Indonesia","Bahasa Latin","Bahasa Inggris"], a:2},
+    {q:"Bunyi tidak merambat dalam …", o:["Padat","Cair","Ruang hampa","Gas","Plasma"], a:2},
+    {q:"Perang Dunia I berakhir dengan perjanjian …", o:["Versailles","Kalijati","Linggarjati","Renville","Trianon"], a:0},
+
+    {q:"Fotosintesis terjadi di …", o:["Akar","Daun","Batang","Bunga","Kulit"], a:1},
+    {q:"Lambang sila pertama Pancasila adalah …", o:["Bintang","Rantai","Pohon beringin","Kepala banteng","Padi dan kapas"], a:0},
+    {q:"Alat musik dipetik adalah …", o:["Gitar","Drum","Piano","Biola","Suling"], a:0},
+    {q:"Ibu kota Jepang adalah …", o:["Osaka","Tokyo","Kyoto","Nagoya","Sapporo"], a:1},
+    {q:"Perkalian adalah …", o:["Penjumlahan berulang","Pengurangan","Pembagian","Pemangkatan","Perpangkatan"], a:0},
+
+    /* 10 soal sulit */
+    {q:"Jumlah provinsi di Indonesia (2024) adalah …", o:["34","36","38","40","32"], a:2},
+    {q:"Teori Big Bang menjelaskan …", o:["Asal atmosfer","Asal semesta","Asal manusia","Asal bintang","Asal galaksi Bima Sakti"], a:1},
+    {q:"Bilangan prima pertama setelah 50 adalah …", o:["51","52","53","55","57"], a:2},
+    {q:"Unsur paling melimpah di alam semesta adalah …", o:["Oksigen","Karbon","Hidrogen","Helium","Nitrogen"], a:2},
+    {q:"Perang Dunia II berakhir tahun …", o:["1941","1943","1945","1947","1950"], a:2},
+
+    {q:"Ibukota Turki adalah …", o:["Istanbul","Ankara","Izmir","Konya","Bursa"], a:1},
+    {q:"Kecepatan cahaya di vakum sekitar …", o:["300 ribu km/s","150 ribu km/s","1 juta km/s","900 km/s","600 ribu km/s"], a:0},
+    {q:"Zat paling kecil menurut Dalton adalah …", o:["Ion","Atom","Molekul","Sel","Proton"], a:1},
+    {q:"Negara dengan wilayah terbesar adalah …", o:["Kanada","Tiongkok","Rusia","Brasil","India"], a:2},
+    {q:"Gunung tertinggi di dunia adalah …", o:["K2","Kilimanjaro","Everest","Lhotse","Makalu"], a:2}
 ];
-
-shuffle(quizData);
 
 let index = 0;
 let score = 0;
@@ -146,78 +164,76 @@ let timeLeft = 20;
 let timer;
 
 function startGame() {
+    document.getElementById("startBtn").style.display = "none";
     index = 0;
     score = 0;
-    timeLeft = 20;
-    shuffle(quizData);
-    nextQuestion();
-    startTimer();
+    document.getElementById("score").innerHTML = "";
+    loadQuestion();
 }
 
-function startTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-        document.getElementById("timer").innerText = "Waktu: " + timeLeft;
-        timeLeft--;
-        if (timeLeft < 0) {
-            clearInterval(timer);
-            endGame();
-        }
-    }, 1000);
-}
-
-function nextQuestion() {
+function loadQuestion() {
     if (index >= quizData.length) {
-        endGame();
+        document.getElementById("question").innerHTML = "Kamu menyelesaikan game!";
+        document.getElementById("options").innerHTML = "";
+        document.getElementById("score").innerHTML = "Total Skor: " + score + "/" + quizData.length;
+        clearInterval(timer);
+        document.getElementById("startBtn").style.display = "block";
         return;
     }
 
     let q = quizData[index];
-    let options = [...q.o];
-    shuffle(options);
+    document.getElementById("question").innerHTML = (index + 1) + ". " + q.q;
 
-    document.getElementById("question").innerText = (index+1)+". "+q.q;
-
-    let optHTML = "";
-    options.forEach(opt => {
-        optHTML += `<div class='option' onclick="checkAnswer(this, '${opt}')">${opt}</div>`;
+    let optionsHTML = "";
+    q.o.forEach((op, i) => {
+        optionsHTML += `<div class='option' onclick='checkAnswer(${i})'>${op}</div>`;
     });
+    document.getElementById("options").innerHTML = optionsHTML;
 
-    document.getElementById("options").innerHTML = optHTML;
+    resetTimer();
 }
 
-function checkAnswer(element, selected) {
-    let correct = quizData[index].a;
-    let optionDivs = document.querySelectorAll(".option");
+function checkAnswer(selected) {
+    let options = document.querySelectorAll(".option");
 
-    optionDivs.forEach(opt => opt.style.pointerEvents = "none");
-
-    if (selected === correct) {
-        element.classList.add("correct");
+    if (selected === quizData[index].a) {
+        options[selected].classList.add("correct");
         score++;
     } else {
-        element.classList.add("wrong");
-
-        optionDivs.forEach(opt => {
-            if (opt.innerText === correct) {
-                opt.classList.add("correct");
-            }
-        });
+        options[selected].classList.add("wrong");
+        options[quizData[index].a].classList.add("correct");
     }
 
     setTimeout(() => {
         index++;
-        nextQuestion();
+        loadQuestion();
+    }, 800);
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 20;
+    const timerBox = document.getElementById("timer");
+    timerBox.classList.remove("pulse");
+    timerBox.style.color = "#ffcc00";
+    timerBox.innerHTML = "Waktu: " + timeLeft;
+
+    timer = setInterval(() => {
+        timeLeft--;
+
+        if (timeLeft <= 5) {
+            timerBox.style.color = "red";
+            timerBox.classList.add("pulse");
+        }
+
+        timerBox.innerHTML = "Waktu: " + timeLeft;
+
+        if (timeLeft <= 0) {
+            index++;
+            loadQuestion();
+        }
     }, 1000);
 }
-
-function endGame() {
-    document.getElementById("question").innerText = "Game Selesai!";
-    document.getElementById("options").innerHTML = "";
-    document.getElementById("score").innerText = "Skor Anda: " + score + " / " + quizData.length;
-    clearInterval(timer);
-}
-
 </script>
 
 </body>
