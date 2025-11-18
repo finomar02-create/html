@@ -47,11 +47,21 @@
     .option:hover {
         background: #666;
     }
+
+    /* Warna benar / salah */
+    .correct {
+        background: #28a745 !important;
+    }
+    .wrong {
+        background: #dc3545 !important;
+    }
+
     #timer {
         font-size: 22px;
         margin-bottom: 12px;
         color: #ffcc00;
     }
+
     footer {
         margin-top: 40px;
         font-size: 14px;
@@ -170,15 +180,35 @@ function nextQuestion() {
 
     let optHTML = "";
     options.forEach(opt => {
-        optHTML += `<div class='option' onclick="checkAnswer('${opt}')">${opt}</div>`;
+        optHTML += `<div class='option' onclick="checkAnswer(this, '${opt}')">${opt}</div>`;
     });
+
     document.getElementById("options").innerHTML = optHTML;
 }
 
-function checkAnswer(selected) {
-    if (selected === quizData[index].a) score++;
-    index++;
-    nextQuestion();
+function checkAnswer(element, selected) {
+    let correct = quizData[index].a;
+    let optionDivs = document.querySelectorAll(".option");
+
+    optionDivs.forEach(opt => opt.style.pointerEvents = "none");
+
+    if (selected === correct) {
+        element.classList.add("correct");
+        score++;
+    } else {
+        element.classList.add("wrong");
+
+        optionDivs.forEach(opt => {
+            if (opt.innerText === correct) {
+                opt.classList.add("correct");
+            }
+        });
+    }
+
+    setTimeout(() => {
+        index++;
+        nextQuestion();
+    }, 1000);
 }
 
 function endGame() {
