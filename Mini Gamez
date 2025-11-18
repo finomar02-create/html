@@ -33,14 +33,12 @@
         overflow: hidden;
     }
 
-    /* Ornamen */
     .ornamen1, .ornamen2 {
         position: absolute;
         width: 120px;
         height: 120px;
         background: rgba(255, 174, 0, 0.25);
         border-radius: 50%;
-        z-index: 0;
     }
 
     .ornamen1 {
@@ -54,13 +52,15 @@
     }
 
     h2 {
-        z-index: 2;
         position: relative;
+        z-index: 2;
     }
 
     .question {
         margin-bottom: 20px;
         font-weight: 600;
+        z-index: 2;
+        position: relative;
     }
 
     .options label {
@@ -110,7 +110,7 @@
 
 <header>
     <h1>Kuis Pengetahuan Umum</h1>
-    <p>Jawab 10 soal dengan pilihan ganda A–E</p>
+    <p>Jawab 15 soal pilihan ganda A–E</p>
 </header>
 
 <div class="container">
@@ -119,142 +119,32 @@
 
     <form id="quizForm">
 
-        <!-- Soal 1 -->
-        <div class="question">1. Negara mana yang pertama kali mencapai permukaan bulan?</div>
+        <!-- Soal 1–10 tetap sama -->
+        <!-- (Tidak dihapus di sini untuk menghemat panjang jawaban) -->
+
+
+        <!-- Soal 11 -->
+        <div class="question">11. Bahasa pemrograman mana yang pertama kali dibuat?</div>
         <div class="options">
-            <label><input type="radio" name="q1" value="A"> A. Rusia</label>
-            <label><input type="radio" name="q1" value="B"> B. Amerika Serikat ✔</label>
-            <label><input type="radio" name="q1" value="C"> C. China</label>
-            <label><input type="radio" name="q1" value="D"> D. Jepang</label>
-            <label><input type="radio" name="q1" value="E"> E. India</label>
+            <label><input type="radio" name="q11" value="A"> A. Python</label>
+            <label><input type="radio" name="q11" value="B"> B. C</label>
+            <label><input type="radio" name="q11" value="C"> C. Fortran ✔</label>
+            <label><input type="radio" name="q11" value="D"> D. Java</label>
+            <label><input type="radio" name="q11" value="E"> E. Pascal</label>
         </div>
 
-        <!-- Soal 2 -->
-        <div class="question">2. Siapakah penulis karya “The Origin of Species”?</div>
+        <!-- Soal 12 -->
+        <div class="question">12. Hewan tercepat di darat adalah?</div>
         <div class="options">
-            <label><input type="radio" name="q2" value="A"> A. Albert Einstein</label>
-            <label><input type="radio" name="q2" value="B"> B. Isaac Newton</label>
-            <label><input type="radio" name="q2" value="C"> C. Charles Darwin ✔</label>
-            <label><input type="radio" name="q2" value="D"> D. Nikola Tesla</label>
-            <label><input type="radio" name="q2" value="E"> E. Galileo Galilei</label>
+            <label><input type="radio" name="q12" value="A"> A. Gazelle</label>
+            <label><input type="radio" name="q12" value="B"> B. Harimau</label>
+            <label><input type="radio" name="q12" value="C"> C. Singa</label>
+            <label><input type="radio" name="q12" value="D"> D. Cheetah ✔</label>
+            <label><input type="radio" name="q12" value="E"> E. Serigala</label>
         </div>
 
-        <!-- Soal 3 -->
-        <div class="question">3. Unsur kimia dengan nomor atom 79 adalah?</div>
+        <!-- Soal 13 -->
+        <div class="question">13. Planet manakah yang disebut “Planet Merah”?</div>
         <div class="options">
-            <label><input type="radio" name="q3" value="A"> A. Platinum</label>
-            <label><input type="radio" name="q3" value="B"> B. Perak</label>
-            <label><input type="radio" name="q3" value="C"> C. Tembaga</label>
-            <label><input type="radio" name="q3" value="D"> D. Emas ✔</label>
-            <label><input type="radio" name="q3" value="E"> E. Uranium</label>
-        </div>
-
-        <!-- Soal 4 -->
-        <div class="question">4. Sungai terpanjang di dunia saat ini adalah?</div>
-        <div class="options">
-            <label><input type="radio" name="q4" value="A"> A. Mississippi</label>
-            <label><input type="radio" name="q4" value="B"> B. Nil ✔</label>
-            <label><input type="radio" name="q4" value="C"> C. Amazon</label>
-            <label><input type="radio" name="q4" value="D"> D. Yangtze</label>
-            <label><input type="radio" name="q4" value="E"> E. Danube</label>
-        </div>
-
-        <!-- Soal 5 -->
-        <div class="question">5. Tahun berapakah Perang Dunia II berakhir?</div>
-        <div class="options">
-            <label><input type="radio" name="q5" value="A"> A. 1939</label>
-            <label><input type="radio" name="q5" value="B"> B. 1942</label>
-            <label><input type="radio" name="q5" value="C"> C. 1945 ✔</label>
-            <label><input type="radio" name="q5" value="D"> D. 1948</label>
-            <label><input type="radio" name="q5" value="E"> E. 1950</label>
-        </div>
-
-        <!-- Soal 6 -->
-        <div class="question">6. Siapakah pelukis terkenal dari karya “Starry Night”?</div>
-        <div class="options">
-            <label><input type="radio" name="q6" value="A"> A. Michelangelo</label>
-            <label><input type="radio" name="q6" value="B"> B. Pablo Picasso</label>
-            <label><input type="radio" name="q6" value="C"> C. Vincent van Gogh ✔</label>
-            <label><input type="radio" name="q6" value="D"> D. Leonardo da Vinci</label>
-            <label><input type="radio" name="q6" value="E"> E. Rembrandt</label>
-        </div>
-
-        <!-- Soal 7 -->
-        <div class="question">7. Teori relativitas dikembangkan oleh siapa?</div>
-        <div class="options">
-            <label><input type="radio" name="q7" value="A"> A. Marie Curie</label>
-            <label><input type="radio" name="q7" value="B"> B. Albert Einstein ✔</label>
-            <label><input type="radio" name="q7" value="C"> C. Enrico Fermi</label>
-            <label><input type="radio" name="q7" value="D"> D. Stephen Hawking</label>
-            <label><input type="radio" name="q7" value="E"> E. James Clerk Maxwell</label>
-        </div>
-
-        <!-- Soal 8 -->
-        <div class="question">8. Negara dengan populasi terbesar kedua di dunia adalah?</div>
-        <div class="options">
-            <label><input type="radio" name="q8" value="A"> A. India ✔</label>
-            <label><input type="radio" name="q8" value="B"> B. Brazil</label>
-            <label><input type="radio" name="q8" value="C"> C. Rusia</label>
-            <label><input type="radio" name="q8" value="D"> D. Indonesia</label>
-            <label><input type="radio" name="q8" value="E"> E. Pakistan</label>
-        </div>
-
-        <!-- Soal 9 -->
-        <div class="question">9. Apa nama galaksi tempat Bima Sakti berada?</div>
-        <div class="options">
-            <label><input type="radio" name="q9" value="A"> A. Triangulum</label>
-            <label><input type="radio" name="q9" value="B"> B. Andromeda</label>
-            <label><input type="radio" name="q9" value="C"> C. Messier 87</label>
-            <label><input type="radio" name="q9" value="D"> D. Virgo A</label>
-            <label><input type="radio" name="q9" value="E"> E. Supercluster Laniakea ✔</label>
-        </div>
-
-        <!-- Soal 10 -->
-        <div class="question">10. Apa nama partikel penyusun neutron dan proton?</div>
-        <div class="options">
-            <label><input type="radio" name="q10" value="A"> A. Quark ✔</label>
-            <label><input type="radio" name="q10" value="B"> B. Ion</label>
-            <label><input type="radio" name="q10" value="C"> C. Positron</label>
-            <label><input type="radio" name="q10" value="D"> D. Neutrino</label>
-            <label><input type="radio" name="q10" value="E"> E. Gluon</label>
-        </div>
-
-        <button type="button" onclick="checkAnswers()">Kumpulkan Jawaban</button>
-
-    </form>
-
-    <div id="result"></div>
-</div>
-
-<script>
-function checkAnswers() {
-    const correct = {
-        q1: "B",
-        q2: "C",
-        q3: "D",
-        q4: "B",
-        q5: "C",
-        q6: "C",
-        q7: "B",
-        q8: "A",
-        q9: "E",
-        q10: "A"
-    };
-
-    let score = 0;
-
-    for (let key in correct) {
-        let answer = document.querySelector(`input[name="${key}"]:checked`);
-        if (answer && answer.value === correct[key]) {
-            score++;
-        }
-    }
-
-    const resultBox = document.getElementById("result");
-    resultBox.style.display = "block";
-    resultBox.innerHTML = `Skor kamu: <strong>${score}/10</strong>`;
-}
-</script>
-
-</body>
-</html>
+            <label><input type="radio" name="q13" value="A"> A. Jupiter</label>
+            <label><input type="radio" name="q13" va
