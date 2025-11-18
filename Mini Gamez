@@ -4,49 +4,95 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mini Game Kuis Kelas 10</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
-        background: #222;
+        background: linear-gradient(135deg, #1e1e2f, #191919, #2c2c54);
+        background-size: 300% 300%;
+        animation: bgMove 12s infinite alternate;
         color: #fff;
         text-align: center;
         padding: 20px;
     }
-    .game-box {
-        background: #333;
-        padding: 20px;
-        border-radius: 12px;
-        max-width: 600px;
-        margin: auto;
+
+    @keyframes bgMove {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
     }
+
+    h1 {
+        text-shadow: 0 0 12px #00eaff, 0 0 22px #00eaff;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .game-box {
+        background: rgba(40, 40, 40, 0.9);
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        max-width: 650px;
+        margin: auto;
+        backdrop-filter: blur(5px);
+    }
+
     button {
-        padding: 10px 20px;
+        padding: 12px 25px;
         border: none;
         background: #28a745;
         color: white;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
-        margin: 10px;
-        font-size: 16px;
+        font-size: 17px;
+        transition: 0.25s;
     }
+
     button:hover {
-        background: #218838;
+        transform: scale(1.07);
+        background: #22c34a;
     }
+
     .option {
         display: block;
         background: #444;
-        padding: 10px;
-        border-radius: 8px;
-        margin: 8px;
+        padding: 12px;
+        border-radius: 10px;
+        margin: 10px;
         cursor: pointer;
+        transition: 0.25s;
     }
+
     .option:hover {
         background: #555;
+        transform: scale(1.05);
     }
+
+    .correct {
+        background: #28a745 !important;
+        transform: scale(1.12);
+    }
+
+    .wrong {
+        background: #dc3545 !important;
+        transform: scale(1.08);
+    }
+
     #timer {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: 22px;
+        margin-bottom: 12px;
         color: #ffcc00;
+        transition: 0.3s;
+        font-weight: bold;
+    }
+
+    .pulse {
+        animation: pulseAnim 1s infinite alternate;
+    }
+
+    @keyframes pulseAnim {
+        from { transform: scale(1); }
+        to { transform: scale(1.25); }
     }
 </style>
 </head>
@@ -58,7 +104,9 @@
     <div id="timer">Waktu: 20</div>
     <h2 id="question">Klik Mulai untuk bermain!</h2>
     <div id="options"></div>
-    <button onclick="startGame()">Mulai Game</button>
+
+    <button id="startBtn" onclick="startGame()">Mulai Game</button>
+
     <h2 id="score"></h2>
 </div>
 
@@ -69,26 +117,40 @@ const quizData = [
     {q:"Rumus kimia air adalah …", o:["CO₂","H₂O","O₂"], a:1},
     {q:"Bentuk pemerintahan Indonesia adalah …", o:["Kerajaan","Republik","Monarki"], a:1},
     {q:"Jika gaya meningkat, percepatan …", o:["Berkurang","Tetap","Bertambah"], a:2},
-    {q:"Ibu kota provinsi Jawa Barat adalah …", o:["Bandung","Bogor","Depok"], a:0},
+    {q:"Ibu kota Jawa Barat adalah …", o:["Bandung","Bogor","Depok"], a:0},
     {q:"Contoh energi terbarukan: …", o:["Batu bara","Minyak bumi","Matahari"], a:2},
     {q:"Teks berisi langkah-langkah adalah teks …", o:["Eksposisi","Prosedur","Narasi"], a:1},
     {q:"Masjid Istiqlal berada di …", o:["Bandung","Jakarta","Surabaya"], a:1},
     {q:"Perubahan padat ke cair disebut …", o:["Mencair","Membeku","Menyublim"], a:0},
+
     {q:"Proklamator Indonesia adalah …", o:["Soekarno & Hatta","Soeharto & Habibie","Diponegoro & Bung Tomo"], a:0},
     {q:"Planet terbesar adalah …", o:["Bumi","Jupiter","Venus"], a:1},
     {q:"Teks yang bertujuan membujuk disebut …", o:["Persuasif","Deskripsi","Eksplanasi"], a:0},
     {q:"Rangka manusia tersusun dari …", o:["Otot","Tulang","Jaringan"], a:1},
     {q:"Negara tetangga Indonesia di utara …", o:["Australia","Malaysia","India"], a:1},
-    {q:"Rumus luas persegi …", o:["p×l","s×s","½×a×t"], a:1},
-    {q:"Energi listrik ke cahaya terjadi pada …", o:["Kipas","Lampu","Setrika"], a:1},
+    {q:"Rumus luas persegi adalah …", o:["p×l","s×s","½×a×t"], a:1},
+    {q:"Energi listrik menjadi cahaya terjadi pada …", o:["Kipas","Lampu","Setrika"], a:1},
     {q:"Bahasa pemersatu bangsa adalah …", o:["Bahasa daerah","Bahasa asing","Bahasa Indonesia"], a:2},
     {q:"Bunyi tidak merambat dalam …", o:["Padat","Cair","Ruang hampa"], a:2},
     {q:"Perang Dunia I berakhir dengan perjanjian …", o:["Versailles","Kalijati","Linggarjati"], a:0},
+
     {q:"Fotosintesis terjadi di …", o:["Akar","Daun","Batang"], a:1},
     {q:"Lambang sila pertama adalah …", o:["Bintang","Rantai","Pohon beringin"], a:0},
     {q:"Alat musik dipetik adalah …", o:["Gitar","Drum","Piano"], a:0},
-    {q:"Ibukota Jepang adalah …", o:["Osaka","Tokyo","Kyoto"], a:1},
-    {q:"Perkalian adalah …", o:["Penjumlahan berulang","Pengurangan","Pembagian"], a:0}
+    {q:"Ibu kota Jepang adalah …", o:["Osaka","Tokyo","Kyoto"], a:1},
+    {q:"Perkalian adalah …", o:["Penjumlahan berulang","Pengurangan","Pembagian"], a:0},
+
+    /* ---- 10 SOAL SULIT ---- */
+    {q:"Jumlah provinsi di Indonesia pada 2024 adalah …", o:["34","38","40"], a:1},
+    {q:"Teori Big Bang menjelaskan …", o:["Asal atmosfer","Asal terbentuknya alam semesta","Asal manusia"], a:1},
+    {q:"Bilangan prima terkecil yang lebih besar dari 50 adalah …", o:["53","59","61"], a:0},
+    {q:"Unsur paling melimpah di alam semesta adalah …", o:["Oksigen","Helium","Hidrogen"], a:2},
+    {q:"Perang Dunia II berakhir pada tahun …", o:["1942","1945","1948"], a:1},
+    {q:"Ibukota Turki yang benar adalah …", o:["Istanbul","Ankara","Izmir"], a:1},
+    {q:"Laju cahaya di vakum adalah sekitar …", o:["300.000 km/s","150.000 km/s","1.000.000 km/s"], a:0},
+    {q:"Zat yang tidak dapat dibagi lagi menurut Dalton adalah …", o:["Ion","Atom","Molekul"], a:1},
+    {q:"Negara dengan luas wilayah terbesar adalah …", o:["Kanada","Rusia","China"], a:1},
+    {q:"Gunung tertinggi di dunia adalah …", o:["K2","Kilimanjaro","Everest"], a:2}
 ];
 
 let index = 0;
@@ -97,6 +159,7 @@ let timeLeft = 20;
 let timer;
 
 function startGame() {
+    document.getElementById("startBtn").style.display = "none";
     index = 0;
     score = 0;
     document.getElementById("score").innerHTML = "";
@@ -107,8 +170,9 @@ function loadQuestion() {
     if (index >= quizData.length) {
         document.getElementById("question").innerHTML = "Kamu menyelesaikan game!";
         document.getElementById("options").innerHTML = "";
-        document.getElementById("score").innerHTML = "Total Skor: " + score + "/25";
+        document.getElementById("score").innerHTML = "Total Skor: " + score + "/" + quizData.length;
         clearInterval(timer);
+        document.getElementById("startBtn").style.display = "block";
         return;
     }
 
@@ -125,19 +189,39 @@ function loadQuestion() {
 }
 
 function checkAnswer(selected) {
-    if (selected === quizData[index].a) score++;
-    index++;
-    loadQuestion();
+    let options = document.querySelectorAll(".option");
+
+    if (selected === quizData[index].a) {
+        options[selected].classList.add("correct");
+        score++;
+    } else {
+        options[selected].classList.add("wrong");
+        options[quizData[index].a].classList.add("correct");
+    }
+
+    setTimeout(() => {
+        index++;
+        loadQuestion();
+    }, 800);
 }
 
 function resetTimer() {
     clearInterval(timer);
     timeLeft = 20;
-    document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
+    const timerBox = document.getElementById("timer");
+    timerBox.classList.remove("pulse");
+    timerBox.style.color = "#ffcc00";
+    timerBox.innerHTML = "Waktu: " + timeLeft;
 
     timer = setInterval(() => {
         timeLeft--;
-        document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
+
+        if (timeLeft <= 5) {
+            timerBox.style.color = "red";
+            timerBox.classList.add("pulse");
+        }
+
+        timerBox.innerHTML = "Waktu: " + timeLeft;
 
         if (timeLeft <= 0) {
             index++;
