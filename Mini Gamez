@@ -52,7 +52,7 @@
 </head>
 <body>
 
-<h1>🎮 Mini Game Kuis Kelas 10</h1>
+<h1>Mini Game Kuis Kelas 10</h1>
 
 <div class="game-box">
     <div id="timer">Waktu: 20</div>
@@ -80,7 +80,7 @@ const quizData = [
     {q:"Rangka manusia tersusun dari …", o:["Otot","Tulang","Jaringan"], a:1},
     {q:"Negara tetangga Indonesia di utara …", o:["Australia","Malaysia","India"], a:1},
     {q:"Rumus luas persegi …", o:["p×l","s×s","½×a×t"], a:1},
-    {q:"Energi listrik → cahaya terjadi pada …", o:["Kipas","Lampu","Setrika"], a:1},
+    {q:"Energi listrik ke cahaya terjadi pada …", o:["Kipas","Lampu","Setrika"], a:1},
     {q:"Bahasa pemersatu bangsa adalah …", o:["Bahasa daerah","Bahasa asing","Bahasa Indonesia"], a:2},
     {q:"Bunyi tidak merambat dalam …", o:["Padat","Cair","Ruang hampa"], a:2},
     {q:"Perang Dunia I berakhir dengan perjanjian …", o:["Versailles","Kalijati","Linggarjati"], a:0},
@@ -105,7 +105,7 @@ function startGame() {
 
 function loadQuestion() {
     if (index >= quizData.length) {
-        document.getElementById("question").innerHTML = "🎉 Kamu Menyelesaikan Game!";
+        document.getElementById("question").innerHTML = "Kamu menyelesaikan game!";
         document.getElementById("options").innerHTML = "";
         document.getElementById("score").innerHTML = "Total Skor: " + score + "/25";
         clearInterval(timer);
@@ -113,7 +113,7 @@ function loadQuestion() {
     }
 
     let q = quizData[index];
-    document.getElementById("question").innerHTML = (index+1) + ". " + q.q;
+    document.getElementById("question").innerHTML = (index + 1) + ". " + q.q;
 
     let optionsHTML = "";
     q.o.forEach((op, i) => {
@@ -134,7 +134,7 @@ function resetTimer() {
     clearInterval(timer);
     timeLeft = 20;
     document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
-    
+
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
