@@ -27,16 +27,18 @@
         margin-bottom: 20px;
     }
 
-    .game-box {
+    .start-screen, .game-box {
         background: rgba(40, 40, 40, 0.9);
         padding: 25px;
         border-radius: 15px;
         box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
         max-width: 650px;
         margin: auto;
+        display: none;
         backdrop-filter: blur(5px);
     }
 
+    /* Tombol */
     button {
         padding: 12px 25px;
         border: none;
@@ -53,6 +55,7 @@
         background: #22c34a;
     }
 
+    /* Opsi */
     .option {
         display: block;
         background: #444;
@@ -100,20 +103,24 @@
 
 <h1>Mini Game Kuis Kelas 10</h1>
 
-<div class="game-box">
+<!-- ======================= HALAMAN AWAL ======================= -->
+<div class="start-screen" id="startScreen" style="display:block;">
+    <h2>Selamat datang di Mini Kuis!</h2>
+    <p>Tekan tombol di bawah untuk memulai permainan.</p>
+    <button onclick="startGame()">Mulai Kuis</button>
+</div>
+
+<!-- ======================= HALAMAN KUIS ======================= -->
+<div class="game-box" id="gameBox">
     <div id="timer">Waktu: 20</div>
-    <h2 id="question">Klik Mulai untuk bermain!</h2>
+    <h2 id="question"></h2>
     <div id="options"></div>
-
-    <button id="startBtn" onclick="startGame()">Mulai Game</button>
-
     <h2 id="score"></h2>
 </div>
 
 <script>
+/* ================== DATA SOAL (40 SOAL) ================== */
 const quizData = [
-    /* ===== 40 SOAL (SEMUA 5 OPSI) ===== */
-
     {q:"Proses mengubah air menjadi uap disebut …", o:["Kondensasi","Evaporasi","Sublimasi","Deposisi","Difusi"], a:1},
     {q:"Nilai Pancasila sila ke-3 adalah …", o:["Kemanusiaan","Persatuan Indonesia","Ketuhanan","Keadilan","Kerakyatan"], a:1},
     {q:"Rumus kimia air adalah …", o:["CO₂","H₂O","O₂","H₂","N₂"], a:1},
@@ -144,7 +151,6 @@ const quizData = [
     {q:"Ibu kota Jepang adalah …", o:["Osaka","Tokyo","Kyoto","Nagoya","Sapporo"], a:1},
     {q:"Perkalian adalah …", o:["Penjumlahan berulang","Pengurangan","Pembagian","Pemangkatan","Perpangkatan"], a:0},
 
-    /* 10 soal sulit */
     {q:"Jumlah provinsi di Indonesia (2024) adalah …", o:["34","36","38","40","32"], a:2},
     {q:"Teori Big Bang menjelaskan …", o:["Asal atmosfer","Asal semesta","Asal manusia","Asal bintang","Asal galaksi Bima Sakti"], a:1},
     {q:"Bilangan prima pertama setelah 50 adalah …", o:["51","52","53","55","57"], a:2},
@@ -163,21 +169,24 @@ let score = 0;
 let timeLeft = 20;
 let timer;
 
+/* =============== MULAI GAME =============== */
 function startGame() {
-    document.getElementById("startBtn").style.display = "none";
+    document.getElementById("startScreen").style.display = "none";
+    document.getElementById("gameBox").style.display = "block";
+
     index = 0;
     score = 0;
-    document.getElementById("score").innerHTML = "";
+
     loadQuestion();
 }
 
+/* =============== TAMPIL SOAL =============== */
 function loadQuestion() {
     if (index >= quizData.length) {
         document.getElementById("question").innerHTML = "Kamu menyelesaikan game!";
         document.getElementById("options").innerHTML = "";
         document.getElementById("score").innerHTML = "Total Skor: " + score + "/" + quizData.length;
         clearInterval(timer);
-        document.getElementById("startBtn").style.display = "block";
         return;
     }
 
@@ -193,6 +202,7 @@ function loadQuestion() {
     resetTimer();
 }
 
+/* =============== JAWABAN =============== */
 function checkAnswer(selected) {
     let options = document.querySelectorAll(".option");
 
@@ -210,6 +220,7 @@ function checkAnswer(selected) {
     }, 800);
 }
 
+/* =============== TIMER =============== */
 function resetTimer() {
     clearInterval(timer);
     timeLeft = 20;
