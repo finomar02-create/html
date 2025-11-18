@@ -58,14 +58,6 @@
     #muteBtn:hover {
         background: #0069d9;
     }
-
-    /* FOOTER */
-    footer {
-        margin-top: 40px;
-        font-size: 14px;
-        opacity: 0.8;
-        color: #ccc;
-    }
 </style>
 </head>
 <body>
@@ -84,14 +76,139 @@
     <h2 id="score"></h2>
 </div>
 
-<!-- FOOTER TAMBAHAN -->
-<footer>
-    Oleh Alfino dan Farid – SMAN Kabuh Jombang | 2025
-</footer>
-
 <script>
-/* Soal, shuffle function, timer, dan game logic tetap sama */
-/* ———— (kode quizData + script panjangmu tetap di sini tanpa perubahan) ———— */
+// =========================
+// 40 SOAL DENGAN 5 PILIHAN
+// =========================
+const quizData = [
+    {q:"Proses mengubah air menjadi uap disebut …", o:["Kondensasi","Evaporasi","Sublimasi","Deposisi","Filtrasi"], a:1},
+    {q:"Nilai Pancasila sila ke-3 adalah …", o:["Kemanusiaan","Persatuan Indonesia","Kerakyatan","Ketuhanan","Keadilan"], a:1},
+    {q:"Rumus kimia air adalah …", o:["CO₂","H₂O","O₂","H₂","HO"], a:1},
+    {q:"Bentuk pemerintahan Indonesia adalah …", o:["Kerajaan","Republik","Monarki","Federal","Imperium"], a:1},
+    {q:"Jika gaya meningkat, percepatan …", o:["Berkurang","Tetap","Bertambah","Hilang","Negatif"], a:2},
+    {q:"Ibu kota provinsi Jawa Barat adalah …", o:["Bandung","Bogor","Depok","Bekasi","Cimahi"], a:0},
+    {q:"Contoh energi terbarukan adalah …", o:["Batu bara","Minyak bumi","Matahari","Gas alam","Uranium"], a:2},
+    {q:"Teks berisi langkah-langkah adalah teks …", o:["Eksposisi","Prosedur","Narasi","Recount","Deskripsi"], a:1},
+    {q:"Masjid Istiqlal berada di …", o:["Bandung","Jakarta","Surabaya","Medan","Palembang"], a:1},
+    {q:"Perubahan padat ke cair disebut …", o:["Mencair","Membeku","Menyublim","Mengembun","Deposisi"], a:0},
+
+    // 30 soal tambahan
+    {q:"Proklamator Indonesia adalah …", o:["Soekarno & Hatta","Soeharto & Habibie","Diponegoro & Bung Tomo","Kartini & Pattimura","Hatta & Tan Malaka"], a:0},
+    {q:"Planet terbesar di tata surya adalah …", o:["Bumi","Jupiter","Venus","Saturnus","Neptunus"], a:1},
+    {q:"Teks bertujuan membujuk disebut …", o:["Persuasif","Deskripsi","Eksplanasi","Laporan","Narasi"], a:0},
+    {q:"Rangka manusia tersusun dari …", o:["Otot","Tulang","Jaringan","Sel","Kartilago"], a:1},
+    {q:"Negara tetangga Indonesia di utara adalah …", o:["Australia","Malaysia","India","Filipina","Jepang"], a:1},
+    {q:"Rumus luas persegi adalah …", o:["p×l","s×s","½×a×t","πr²","2×s"], a:1},
+    {q:"Energi listrik menjadi cahaya terjadi pada …", o:["Kipas","Lampu","Setrika","Radio","Telepon"], a:1},
+    {q:"Bahasa pemersatu bangsa adalah …", o:["Bahasa daerah","Bahasa asing","Bahasa Indonesia","Bahasa Inggris","Bahasa Melayu"], a:2},
+    {q:"Bunyi tidak merambat pada …", o:["Padat","Cair","Ruang hampa","Udara","Air"], a:2},
+    {q:"Perang Dunia I berakhir dengan perjanjian …", o:["Versailles","Kalijati","Linggarjati","Gubuak","London"], a:0},
+    {q:"Fotosintesis terjadi pada …", o:["Akar","Daun","Batang","Buah","Biji"], a:1},
+    {q:"Lambang sila pertama adalah …", o:["Bintang","Rantai","Pohon beringin","Banteng","Padi dan kapas"], a:0},
+    {q:"Alat musik dipetik adalah …", o:["Gitar","Drum","Piano","Trompet","Suling"], a:0},
+    {q:"Ibukota Jepang adalah …", o:["Osaka","Tokyo","Kyoto","Nagoya","Fukuoka"], a:1},
+    {q:"Perkalian adalah …", o:["Penjumlahan berulang","Pengurangan","Pembagian","Akar kuadrat","Pecahan"], a:0},
+    {q:"Gunung tertinggi di Indonesia adalah …", o:["Semeru","Rinjani","Jayawijaya","Kerinci","Merapi"], a:2},
+    {q:"Suhu 0°C sama dengan …", o:["32°F","0°F","100°F","-10°F","50°F"], a:0},
+    {q:"Penemu bola lampu adalah …", o:["Einstein","Newton","Edison","Tesla","Faraday"], a:2},
+    {q:"Ibukota Australia adalah …", o:["Sydney","Melbourne","Canberra","Perth","Adelaide"], a:2},
+    {q:"Organ terbesar pada tubuh manusia adalah …", o:["Jantung","Kulit","Hati","Ginjal","Paru-paru"], a:1},
+    {q:"Penyebab utama pemanasan global adalah …", o:["Oksigen","CO₂","Nitrogen","Helium","Hidrogen"], a:1},
+    {q:"Nama benua terbesar adalah …", o:["Afrika","Asia","Eropa","Amerika","Australia"], a:1},
+    {q:"Simbol unsur air dalam kimia adalah …", o:["Na","O","H","He","Hg"], a:2},
+    {q:"Penemu gravitasi adalah …", o:["Tesla","Newton","Edison","Darwin","Archimedes"], a:1},
+    {q:"Negara dengan piramida terkenal adalah …", o:["Indonesia","Mesir","Brazil","Italia","India"], a:1},
+    {q:"Penyakit yang disebabkan virus …", o:["Tifus","Malaria","Influenza","Cacingan","Anemia"], a:2},
+    {q:"Ibukota Inggris adalah …", o:["London","Manchester","Liverpool","Bristol","Leeds"], a:0},
+    {q:"Hewan pemakan tumbuhan disebut …", o:["Karnivora","Herbivora","Omnivora","Detritivora","Insektivora"], a:1},
+    {q:"Listrik dihasilkan di …", o:["BTS","PLTU","ATM","KPU","GPU"], a:1},
+    {q:"Nama lain dari tekanan udara adalah …", o:["Hidrostatik","Aneroid","Barometer","Atmosfer","Ozon"], a:3}
+];
+
+// SHUFFLE ARRAY
+function shuffle(array){
+    for(let i=array.length-1;i>0;i--){
+        let j=Math.floor(Math.random()* (i+1));
+        [array[i],array[j]]=[array[j],array[i]];
+    }
+    return array;
+}
+
+let index = 0;
+let score = 0;
+let timeLeft = 20;
+let timer;
+
+function startGame() {
+    index = 0;
+    score = 0;
+    shuffle(quizData); // acak urutan soal
+    document.getElementById("score").innerHTML = "";
+    loadQuestion();
+}
+
+// LOAD SOAL
+function loadQuestion() {
+    if (index >= quizData.length) {
+        document.getElementById("question").innerHTML = "Kamu menyelesaikan game!";
+        document.getElementById("options").innerHTML = "";
+        document.getElementById("score").innerHTML = "Total Skor: " + score + "/40";
+        clearInterval(timer);
+        return;
+    }
+
+    let q = quizData[index];
+    document.getElementById("question").innerHTML = (index + 1) + ". " + q.q;
+
+    // acak pilihan
+    let optionIndex = q.o.map((v,i)=>({opt:v,idx:i}));
+    shuffle(optionIndex);
+
+    let optionsHTML = "";
+    optionIndex.forEach(o => {
+        optionsHTML += `<div class='option' onclick='checkAnswer(${o.idx})'>${o.opt}</div>`;
+    });
+
+    document.getElementById("options").innerHTML = optionsHTML;
+
+    resetTimer();
+}
+
+function checkAnswer(selected) {
+    if (selected === quizData[index].a) score++;
+    index++;
+    loadQuestion();
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    timeLeft = 20;
+    document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").innerHTML = "Waktu: " + timeLeft;
+
+        if (timeLeft <= 0) {
+            index++;
+            loadQuestion();
+        }
+    }, 1000);
+}
+
+// MUSIC CONTROL
+function toggleMute() {
+    const bgm = document.getElementById("bgm");
+    const btn = document.getElementById("muteBtn");
+
+    if (bgm.paused) {
+        bgm.play();
+        btn.innerHTML = "🔊 Musik";
+    } else {
+        bgm.pause();
+        btn.innerHTML = "🔇 Musik Mati";
+    }
+}
 </script>
 
 </body>
